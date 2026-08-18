@@ -66,7 +66,7 @@ function addItem(){
 }  
   
 }
-//Here below it moust be a amount price
+
 
 
 
@@ -81,7 +81,7 @@ function addAmount(){
   document.getElementById('receiptList').appendChild(p) ; 
   input.value = "" ; 
 }
-//Here below i was make delte button complate it 
+//Delte button not finshied 
 function delItem(){
   
 }
@@ -94,6 +94,6 @@ addBt.onclick = so ;
 
 
 
-  //date to today
+  //date 
 dateInput.valueAsDate = new Date();
 
