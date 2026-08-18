@@ -81,10 +81,7 @@ function addAmount(){
   document.getElementById('receiptList').appendChild(p) ; 
   input.value = "" ; 
 }
-//Delte button not finshied 
-function delItem(){
-  
-}
+//This is not the final name of function 
 function so(){
   addItem() ; 
   addAmount()
@@ -94,6 +91,6 @@ addBt.onclick = so ;
 
 
 
-  //date 
+//date 
 dateInput.valueAsDate = new Date();
 
