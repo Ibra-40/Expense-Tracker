@@ -3,7 +3,7 @@
 A simple website for tracking your expenses.
 
 ## Features
-- Add expense name
+- Add expense 
 - Add amount
 - Select category
 - View your expenses
