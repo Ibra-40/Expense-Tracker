@@ -1,2 +1,12 @@
-# Expense-Tracker
-A simple expense tracker. Enter a name, amount, and category to keep track of everything you spend . 
+# Expense Tracker
+
+A simple website for tracking your expenses.
+
+## Features
+- Add expense name
+- Add amount
+- Select category
+- View your expenses
+
+## Status
+Work in progress 🚧 
