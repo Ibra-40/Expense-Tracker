@@ -1,12 +1,18 @@
 # Expense Tracker
 
-A simple website for tracking your expenses.
+My first web development project a simple website for tracking expenses.
 
 ## Features
-- Add expense 
-- Add amount
-- Select category
+- Add an expense
+- Enter the amount
+- Select a category
 - View your expenses
 
+## Built With
+- HTML
+- CSS
+- Bootstrap
+- JavaScript
+
 ## Status
-Work in progress 🚧 
+Work in progress 🚧
