@@ -30,16 +30,17 @@ const stateTittel = document.getElementById('state-tittle') ;
 let count = 0 ; 
 
 //Payment list
-function addItem(){
+function addItem(){  
   const input = document.getElementById('descInput') ; 
   const text = input.value ;
+  let category = categoryInput.value ; 
   count++ ; 
   stateTittel.innerHTML = '';
   if(text =="")return;
   
   const p = document.createElement('p'); 
-  p.textContent = text ; 
-
+  p.textContent = text ;  
+  p.style.color = categoryColors[category] ;
   document.getElementById('receiptList').appendChild(p) ; 
 
   input.value = "" ; 
@@ -64,9 +65,9 @@ function addItem(){
     count = 0 ; 
     stateTittel.innerHTML = 'Nothing logged yet add your first payment.';//This isn`t show so see it 
 }  
+
   
 }
-
 
 
 
