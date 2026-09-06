@@ -9,8 +9,6 @@ const categoryColors = {
     Other: '#a0a0a0'
 };
 
-let payments = [];
-let idCounter = 1;
 
 const form = document.getElementById('paymentForm');
 const descInput = document.getElementById('descInput');
@@ -27,71 +25,95 @@ const exportBtn = document.getElementById('exportBtn');
 const state_tittle = document.getElementById('state-tittle');
 const addBt =document.getElementById('addBt') ; 
 const stateTittel = document.getElementById('state-tittle') ; 
-let count = 0 ; 
 
-//Payment list
-function addItem(){  
-  const input = document.getElementById('descInput') ; 
-  const text = input.value ;
-  let category = categoryInput.value ; 
-  count++ ; 
+
+let payments = JSON.parse(localStorage.getItem('payments')) || [] ;
+let idCounter = payments.length ? Math.max(...payments.map(p => p.id)) + 1 : 0 ;
+let count = payments.length;
+
+
+function renderPayment(payment) {
+  const p = document.createElement('p');
+  p.textContent = payment.descTion ;
+  p.style.color = categoryColors[payment.categorys] ;
+
+  let del = document.createElement("button") ;
+  del.textContent = " ❌" ;
+
+  let info = document.createElement('button') ;
+  info.textContent = 'ℹ️' ;
+
+  let infoBox = document.createElement('span') ; // shows details 'inline'
+
+  del.onclick = function () {
+    p.remove();
+    payments = payments.filter(item => item.id !== payment.id) ; // remove just item
+    localStorage.setItem('payments', JSON.stringify(payments)) ; // save updated array
+    count--;
+    if (count === 0) {
+      stateTittel.innerHTML = 'Nothing logged yet add your first payment .';
+    }
+  };
+
+  info.onclick = function () {
+    infoBox.textContent =
+      ` | Amount: ${payment.amounts} | Category: ${payment.categorys} | Date: ${payment.date}`;
+  };
+
+  p.appendChild(del);
+  p.appendChild(info);
+  p.appendChild(infoBox);
+  document.getElementById('receiptList').appendChild(p);
+}
+
+function addItem() {
+  const input = document.getElementById('descInput');
+  const text = input.value;
+  let category = categoryInput.value;
   stateTittel.innerHTML = '';
-  if(text =="")return;
-  
-  const p = document.createElement('p'); 
-  p.textContent = text ;  
-  p.style.color = categoryColors[category] ;
-  document.getElementById('receiptList').appendChild(p) ; 
+  if (text == "") return;
 
-  input.value = "" ; 
+  const payment = {
+    id: idCounter,
+    descTion: descInput.value,
+    amounts: amountInput.value,
+    categorys: categoryInput.value,
+    date: dateInput.value
+  };
+  idCounter++;
+  count++;
+  payments.push(payment);
+  localStorage.setItem('payments', JSON.stringify(payments));
 
-  let del = document.createElement("button") ; 
-  del.textContent = " ❌";
+  renderPayment(payment);
+  input.value = "";
+}
 
-  del.onclick=function(){
-    p.remove(); 
-    count-- ;  
-    if(count == 0){
-      stateTittel.innerHTML = 'Nothing logged yet add your first payment.';
-    }    
+// Rebuild the list from localStorage when the page loads
+window.addEventListener('DOMContentLoaded', function () {
+  if (payments.length === 0) {
+    stateTittel.innerHTML = 'Nothing logged yet add your first payment.';
+  } else {
+    payments.forEach(renderPayment);
   }
+});
 
-  p.appendChild(del)
-
-  //textContent.textContent = "" ;
-  //Remove all itemes 
-  clearBtn.onclick = function clearAll(){
-    document.getElementById('receiptList').replaceChildren() ; 
-    count = 0 ; 
-    stateTittel.innerHTML = 'Nothing logged yet add your first payment.';//This isn`t show so see it 
-}  
-
-  
-}
+clearBtn.onclick = function clearAll() {
+  document.getElementById('receiptList').replaceChildren();
+  count = 0;
+  payments = [];
+  localStorage.removeItem('payments');
+  stateTittel.innerHTML = 'Nothing logged yet add your first payment.';
+};
 
 
 
-function addAmount(){
-  const input_amount = document.getElementById('amountInput') ; 
-  const amount = input.value ; 
-  
-  if(amount===0.00) return; 
-
-  const am = document.createElement('p') ; 
-  p.textContent =amount ; 
-  document.getElementById('receiptList').appendChild(p) ; 
-  input.value = "" ; 
-}
-//This is not the final name of function 
 function so(){
   addItem() ; 
-  addAmount()
 }
 
 addBt.onclick = so ;
 
-
-
-//date 
+ 
+  //date to today
 dateInput.valueAsDate = new Date();
-
